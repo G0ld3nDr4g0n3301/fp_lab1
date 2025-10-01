@@ -1,0 +1,40 @@
+name: lab1
+version: 1.0
+
+dependencies:
+  - base >= 4.7 && < 5
+  - foldl
+
+ghc-options:
+  - -Wall
+  - -Werror
+  - -O2
+
+
+# task 7
+library:
+  source-dirs: src
+  exposed_modules:
+   - Task7.Modular
+   - Task7.Infinite
+   - Task7.Recursive
+   - Task7.TailRec
+
+# task 24
+library:
+  source-dirs: src
+  exposed_modules:
+   - Task24.Modular
+   - Task24.Infinite
+   - Task24.Recursive
+   - Task24.TailRec
+   - Task24.Map
+
+tests:
+  lab1-test-suite:
+    main: spec.hs
+    source-dirs: test
+    dependencies:
+      - base
+      - hspec
+      - lab1

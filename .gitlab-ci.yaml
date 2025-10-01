@@ -1,0 +1,38 @@
+image: "fpco/stack-build:lts-23.1"
+
+variables:
+  STACK_ROOT: ${CI_PROJECT_DIR}/.stack
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .stack
+    - .stack-work
+
+stages:
+  - lint
+  - format
+  - build
+  - test
+
+lint:
+  stage: lint
+  script:
+    - stack install hlint --local-bin-path ~/.local/bin/
+    - ~/.local/bin/hlint .
+  allow_failure: false
+
+build:
+  stage: build
+  script:
+    - stack build
+  artifacts:
+    paths:
+      - .stack-work/
+  allow_failure: false
+
+test:
+  stage: test
+  script:
+    - stack test
+  allow_failure: false
